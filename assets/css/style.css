@@ -1,0 +1,33 @@
+body {
+    background: url(../images/bg.png);
+}
+
+h1 {
+    font-weight: bolder;
+    color: #fff;
+    -webkit-text-stroke: 2px black;
+    text-align: center;
+    font-size: 60px;
+}
+
+.page-header {
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+.main {
+    background-color: #fff;
+    border: 2px solid #888;
+    border-radius: 15px;
+    padding: 20px 0;
+    max-width: 500px;
+}
+
+p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.height {
+    height: 28px;
+}

@@ -1,5 +1,5 @@
 // Array of possible word choices.
-var wordsArray = ["apple", "orange", "banana", "plum", "coconut", "cherry"];
+var wordsArray = ["apple", "orange", "banana", "plum", "coconut", "cherry", "apricot", "avocado", "blueberry", "cantaloupe", "persimmon"];
 
 var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -7,6 +7,7 @@ var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
 // Global variables for tracking our wins, remaining guesses & letters guessed.
 
 var wins = 0;
+var streak = 0;
 var lives = 10;
 var lettersGuessed = [];
 var state = [];
@@ -26,18 +27,48 @@ function getWord() {
     }
 }
 
-function print() {
-    var html = "Wins: " + wins + "<br>Word: " + word + "<br>State: " + state + "<br>Lives: " + lives + "<br>Letters Guessed: " + lettersGuessed;
-    document.querySelector("#game").innerHTML = html;
+function displayWins() {
+    var html = "<p>" + wins + "</p>";
+    document.querySelector("#wins").innerHTML = html;
 };
+
+function displayState() {
+    var html = "<h2>";
+    for (var i = 0; i < state.length; i++) {
+        html = html + state[i] + " ";
+    }
+    html = html + "</h2>"
+    document.querySelector("#state").innerHTML = html;
+};
+
+function displayLives() {
+    var html = "<p>" + lives + "</p>";
+    document.querySelector("#lives").innerHTML = html;
+};
+
+function displayGuess() {
+    var html = "<p>" + lettersGuessed + "</p>";
+    document.querySelector("#guess").innerHTML = html;
+};
+
+function displayStreak() {
+    var html = "<p>" + streak + "</p>";
+    document.querySelector("#streak").innerHTML = html;
+};
+
 
 function startGame() {
     resetGame();
     getWord();
-    print();
+    displayWins();
+    displayStreak();
+    displayState();
+    displayLives();
+    displayGuess();
 }
 
 startGame();
+console.log(word);
 
 // Runs function when key is released
 document.onkeyup = function(event) {
@@ -49,24 +80,30 @@ document.onkeyup = function(event) {
             if (userGuess === word[k]) {
                 correctGuess = true;
                 state[k] = userGuess;
+                displayState();
             }
         }
         if (correctGuess === false) {
             lettersGuessed.push(userGuess);
             lives--;
+            displayGuess();
+            displayLives();
         }
     }
     console.log(state);
-    print();
+
     if (!state.includes("_")) {
         console.log("Win");
-        alert("Congratulations! You win");
+        displayState();
+        alert("Congratulations! You correctly guessed: " + word);
         wins++;
+        streak++;
         startGame();
     }
     else if (lives === 0) {
         console.log("lose");
-        alert("Game Over!");
+        streak = 0;
+        alert("Game over! The word was: " + word);
         startGame();
     }
 };
