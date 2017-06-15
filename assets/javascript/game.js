@@ -73,7 +73,7 @@ console.log(word);
 // Runs function when key is released
 document.onkeyup = function(event) {
     // Sets userGuess as key pressed
-    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();;
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
     if (letters.includes(userGuess) && !lettersGuessed.includes(userGuess) && lives > 0) {
         var correctGuess = false;
         for (var k = 0; k < word.length; k++) {
